@@ -1,0 +1,66 @@
+---
+output: 
+  html_document:
+    custom_css: css/styles.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = here::here())
+```
+
+
+```{r load-data}
+library(tidyverse)
+
+rankings_00 <- read_csv("data/fantasy-pro-rankings_2019_raw.csv")
+
+player_template <- read_file("html/player-template.html")
+```
+
+```{r clean-data}
+rankings_01 <- rankings_00 %>% 
+  janitor::clean_names() %>% 
+  select(
+    rank = rank, 
+    position = pos, 
+    name = overall, 
+    rank, 
+    ecr = avg, 
+    best, 
+    worst, 
+    adp,
+    tier, 
+    bye
+  ) %>% 
+  mutate(
+    position_rank = position %>% str_extract("\\d+"),
+    position = position %>% str_extract("^[A-Z]+"),
+    name = str_remove(name, "(?<=^[A-Z])[a-zA-Z]+") %>% toupper()
+  )
+```
+
+
+```{r populate-template, results='asis'}
+card_list <- rankings_01 %>% 
+  pmap_chr(glue::glue, player_template)
+
+card_matrix <- matrix(card_list, ncol = 2)
+
+card_html <- str_c(
+  "<div class=\"row\">",
+  card_matrix[,1],
+  card_matrix[,2],
+  "</div>",
+  collapse = ""
+  )
+
+labels_template <- read_file("html/labels-template.html")
+
+
+labels_page <- glue::glue(labels_template, cards = card_html)
+
+labels_page %>% write_file("output/labels_2019.html")
+
+```
+

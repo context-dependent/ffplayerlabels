@@ -1,0 +1,78 @@
+.col-lg-5.player-card {
+    font-weight: bold;
+    padding: inherit;
+    color: darkslategrey;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 1px;
+    justify-content: center;
+
+}
+
+.row.player-card {
+  width: 100%;
+
+}
+
+.border {
+  border: 5px solid darkslategrey!important;
+  border-color: darkslategrey;
+}
+
+.col-lg-3.position-label {
+  display: flex;
+  align-items: center;
+}
+
+.col-lg-3.position-label.RB {
+  background-color: darkolivegreen;
+}
+
+
+.col-lg-3.position-label.WR {
+  background-color: darkgoldenrod;
+}
+
+
+.col-lg-3.position-label.QB {
+  background-color: darkmagenta;
+}
+
+
+.col-lg-3.position-label.TE {
+  background-color: darkcyan;
+}
+
+
+.col-lg-3.position-label.DST {
+  background-color: brown;
+}
+
+
+.col-lg-3.position-label.K {
+  background-color: darkslategrey;
+}
+
+.col-lg-8.player-name {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+p.position-label {
+  font-size:37px;
+  color: white;
+}
+
+p.player-name {
+
+  font-size: 15pt;
+}
+
+p.info-list {
+    position: absolute;
+    align-self: flex-end;
+    font-size: 6px;
+    justify-self: baseline;
+}
